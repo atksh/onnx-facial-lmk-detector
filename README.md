@@ -13,7 +13,7 @@ import cv2
 sess = ort.InferenceSession("model.onnx")
 
 
-img = cv2.imread("sample.jpg")
+img = cv2.imread("input.jpg")
 
 scores, bboxes, keypoints, aligned_imgs, landmarks, affine_matrices = sess.run(None, {"input": img})
 ```
