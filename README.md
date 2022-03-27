@@ -17,3 +17,6 @@ img = cv2.imread("input.jpg")
 
 scores, bboxes, keypoints, aligned_imgs, landmarks, affine_matrices = sess.run(None, {"input": img})
 ```
+
+Note that this model raises a `RuntimeException` if no face is detected.
+
