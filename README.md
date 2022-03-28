@@ -11,10 +11,11 @@ import onnxruntime as ort
 import cv2
 
 sess = ort.InferenceSession("model.onnx")
-
-
 img = cv2.imread("input.jpg")
 
 scores, bboxes, keypoints, aligned_imgs, landmarks, affine_matrices = sess.run(None, {"input": img})
+# float32 int64 int64 uint8 int64 float32
+# (N,) (N, 4) (N, 5, 2) (N, 224, 224, 3) (N, 106, 2) (N, 2, 3)
 ```
 
+This model requires `onnxruntime>=1.11`.
