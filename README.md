@@ -10,7 +10,7 @@ You can try this model at the following link. Thanks for hysts.
 
 ### Code
 
-See [src/Code.md](/src/Code.md).
+See [src](/src/README.md).
 
 ## Example
 
