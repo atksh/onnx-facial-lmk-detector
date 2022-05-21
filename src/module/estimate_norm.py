@@ -50,6 +50,7 @@ def src():
     )
 
 
+# 224 -> 192
 @torch.jit.script
 def prepare_matrix(n: int):
     return torch.tensor(
@@ -58,6 +59,7 @@ def prepare_matrix(n: int):
     ).repeat((n, 1, 1))
 
 
+# 192 -> 224
 @torch.jit.script
 def prepare_inverse_matrix(n: int):
     return torch.tensor(
