@@ -88,7 +88,8 @@ def _umeyama(src, dst):
 
     # Eq. (39).
     d = torch.ones((N, dime), dtype=torch.float)
-    d[:, dime - 1] = torch.sign(A[:, 0, 0] * A[:, 1, 1] - A[:, 0, 1] * A[:, 1, 0])
+    det_A = A[:, 0, 0] * A[:, 1, 1] - A[:, 0, 1] * A[:, 1, 0]
+    d[:, dime - 1] = torch.sign(det_A)
 
     T = torch.eye(dime + 1, dtype=torch.float).unsqueeze(0).repeat(N, 1, 1)
     d_diag = torch.zeros((N, dime, dime), dtype=torch.float)
@@ -104,8 +105,10 @@ def _umeyama(src, dst):
     )
     scale = scale.view(-1, 1, 1)
 
+    # (bsz, dime, dime) x (bsz, dime, 1) -> (bsz, dime, 1)
     tmp = torch.bmm(T[:, :dime, :dime], src_mean.permute(0, 2, 1))
-    T[:, :dime, dime] = (dst_mean - scale * tmp)[:, :, 1]
+    # (bsz, dime, 1) x (bsz, dime, 1) -> (bsz, dime, 1)
+    T[:, :dime, dime] = (dst_mean.permute(0, 2, 1) - scale * tmp)[:, :, 0]
     T[:, :dime, :dime] *= scale
     return T.float()
 
