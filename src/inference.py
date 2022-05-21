@@ -1,10 +1,6 @@
-import enum
-from asyncio import transports
-
 import cv2
 import numpy as np
 import onnxruntime as ort
-import torch
 
 EP_list = ["CPUExecutionProvider"]
 sess_options = ort.SessionOptions()
@@ -44,4 +40,3 @@ for idx, (bbox, kps, img, lmk, M) in enumerate(zip(bboxes, kpss, imgs, lmks, Ms)
     cv2.imwrite(f"crops/{idx}.jpg", img)
 
 cv2.imwrite(f"sample_out.png", org_img)
-
